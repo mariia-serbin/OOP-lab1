@@ -11,6 +11,7 @@ class BaseList(ABC):
         get(index): Returns the item at the given index.
         set(index): Sets the index of the item to the given value.
         size(): Returns the number of items in the list.
+        swap(el1, el2): Swaps two items of list.
 
     """
     @abstractmethod
@@ -31,6 +32,10 @@ class BaseList(ABC):
 
     @abstractmethod
     def size(self):
+        pass
+
+    @abstractmethod
+    def swap(self, index1, index2):
         pass
 
 #list based on array
@@ -87,6 +92,11 @@ class ArrayList(BaseList):
         else:
             pass
 
+    def _get_element(self, value):
+        for i in range(self.size):
+            if self._data[i] == value:
+                return i
+
     def set(self, index, value):
         if 0 <= index < self._count:
             self._data[index] = value
@@ -95,6 +105,12 @@ class ArrayList(BaseList):
     @property
     def size(self):
         return self._count
+
+    def swap(self, value1, value2):
+        index1 = self._get_element(value1)
+        index2 = self._get_element(value2)
+        self.set(index1, value2)
+        self.set(index2, value1)
 
 
 # implementation of linked lists
@@ -161,6 +177,9 @@ class LinkedList(BaseList):
             current = current.next
             i += 1
         current.data = value
+
+    def swap(self, el1, el2):
+        el1.data, el2.data = el2.data, el1.data
 
     @property
     def size(self):
@@ -270,3 +289,6 @@ class DoublyLinkedList(LinkedList):
     def set(self, index, value):
         node = self.find_node_by_index(index)
         node.data = value
+
+    def swap(self, el1, el2):
+        el1.data, el2.data = el2.data, el1.data
