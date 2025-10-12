@@ -95,3 +95,178 @@ class ArrayList(BaseList):
     @property
     def size(self):
         return self._count
+
+
+# implementation of linked lists
+
+class Node:
+    """
+    Node is a class for a node for linked lists.
+    Attributes:
+        data: stores data of the node.
+        next: stores pointer to the next node.
+    """
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList(BaseList):
+    """
+    LinkedList is a class for linked lists.
+    Attributes:
+        head: stores head(start) of the linked list.
+    Methods:
+        add(item): Adds a new item to the end of the linked list.
+        remove(item): Removes item from the linked list.
+        get(index): Returns the item at the given index.
+        set(index, value): Sets the new value to the node in given position(index).
+        size(): Returns the number of items in the linked list.
+    """
+
+    def __init__(self):
+        self.head = None
+
+    def add(self, item):
+        node = Node(item)
+        if self.head is None:
+            self.head = node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = node
+
+    def remove(self, index):
+        i = 0
+        current = self.head
+        while current.next and i < index:
+            current = current.next
+            i += 1
+        current.next = current.next.next
+
+    def get(self, index):
+        i = 0
+        current = self.head
+        while current.next and i < index:
+            current = current.next
+            i += 1
+        return current.data
+
+    def set(self, index, value):
+        i = 0
+        current = self.head
+        while current.next and i < index:
+            current = current.next
+            i += 1
+        current.data = value
+
+    @property
+    def size(self):
+        size = 0
+        current = self.head
+        while current.next:
+            current = current.next
+            size += 1
+        return size
+
+
+# implementation of doubly linked list
+
+class DoublyNode(Node):
+    """
+    DoublyNode is a class for a node of doubly linked list.
+    Attributes:
+        data: stores data of node
+        next: stores pointer to the next element
+        prev: stores pointer to the previous element
+    """
+
+    def __init__(self, data):
+        super().__init__(data)
+        self.prev = None
+
+
+class DoublyLinkedList(LinkedList):
+    """
+    DoublyLinkedList is a class for doubly linked list.
+    Attributes:
+        head: stores head(start) of the doubly linked list.
+        tail: stores tail(end) of the doubly linked list.
+    Methods:
+        size(): Returns the number of elements in the doubly linked list.
+        add(item): Adds a new item to the doubly linked list.
+        remove(item): Removes item from the doubly linked list.
+        find_node_by_index(index): Returns the node at the given index.
+        get(index): returns value of element at given index.
+        set(index, value): Sets the new value to the node in given position(index).
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.tail = None
+
+    @property
+    def size(self):
+        size = 0
+        current = self.head
+        while current.next:
+            current = current.next
+            size += 1
+        return size
+
+    def add(self, item):
+        node = DoublyNode(item)
+        if self.head is None:
+            self.head = self.tail = node
+
+        self.tail.next = node
+        node.prev = self.tail
+        self.tail = node
+
+    def remove(self, index):
+        if self.head is None:
+            return
+
+        current = self.head
+        i = 0
+        if index == 0:
+            self.head = current.next
+            if self.head:
+                self.head.prev = None
+            return
+
+        while current.next and i < index:
+            current = current.next
+            i += 1
+
+        if i != index:
+            raise IndexError("Index out of range")
+
+        if current.prev:
+            current.prev.next = current.next
+        if current.next:
+            current.next.prev = current.prev
+
+    def find_node_by_index(self, index):
+        if index < 0 or index >= self.size:
+            raise IndexError("Index out of range")
+        i = 0
+        if index < self.size // 2:
+            current = self.head
+            for _ in range(index):
+                current = current.next
+        else:
+            current = self.tail
+            for _ in range(self.size - 1, index, -1):
+                current = current.prev
+        return current
+
+    def get(self, index):
+        node = self.find_node_by_index(index)
+        return node.data
+
+    def set(self, index, value):
+        node = self.find_node_by_index(index)
+        node.data = value
