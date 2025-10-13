@@ -35,7 +35,6 @@ class Sequence(ABC):
 class ManualSequence(Sequence):
     def __init__(self, list_type):
         self.sequence = list_type()
-        self.is_bounded = True
         self.is_convergent = False
         self.length = 0
 
@@ -57,22 +56,17 @@ class ManualSequence(Sequence):
         return result
 
     def _is_increasing(self):
-        is_increasing = False
-        for i in range(0, self.length - 1):
-            if self.sequence.get(i) < self.sequence.get(i+1):
-                is_increasing = True
-            else:
-                is_increasing = False
-
-        return is_increasing
+        for i in range(self.length - 1):
+            if self.sequence.get(i) > self.sequence.get(i + 1):
+                return False
+        return True
 
     def _is_decreasing(self):
-        is_decreasing = True
         for i in range(0, self.length - 1):
             if self.sequence.get(i) < self.sequence.get(i + 1):
-                is_decreasing = False
+                return  False
 
-        return is_decreasing
+        return True
 
 
     def is_monotonic(self, is_increasing = None):
@@ -107,10 +101,3 @@ class ManualSequence(Sequence):
             partial_sum += self.sequence.get(i)
 
         return partial_sum
-
-
-
-
-
-
-
