@@ -179,4 +179,76 @@ class ThreeWayMergeSort(SortingAlgorithm):
     def sort(self, data: BaseList):
         self._three_way_merge()
 
-#additional sorting algorithms (non-comparison). Bucket Sort, Radix Sort
+#additional sorting algorithms (non-comparison). Bucket Sort, Count Sort
+
+class BucketSort:
+
+    def sort(self, data: BaseList, num_buckets: int = None):
+        n = data.size()
+        if n == 0:
+            return data
+
+        if not num_buckets:
+            num_buckets = int(n ** 0.5) + 1
+
+        min_val = data.get(0)
+        max_val = data.get(0)
+        for i in range(1, n):
+            val = data.get(i)
+            if val < min_val:
+                min_val = val
+            if val > max_val:
+                max_val = val
+
+        range_size = (max_val - min_val + 1) / num_buckets
+
+        buckets = [type(data)() for _ in range(num_buckets)]
+
+        for i in range(n):
+            value = data.get(i)
+            index = int((value - min_val) / range_size)
+            if index == num_buckets:
+                index -= 1
+            buckets[index].add(value)
+
+        for b in buckets:
+            InsertionSort.sort(b)
+
+        index = 0
+        for b in buckets:
+            for i in range(b.size()):
+                data.set(index, b.get(i))
+                index += 1
+
+        return data
+
+class CountSort:
+    def sort(self, data: BaseList) -> BaseList:
+        n = data.size()
+        if n == 0:
+            return type(data)()
+
+        max_val = data.max()
+
+        cntArr = [0] * (max_val + 1)
+
+        for i in range(n):
+            cntArr[data.get(i)] += 1
+
+        for i in range(1, max_val + 1):
+            cntArr[i] += cntArr[i - 1]
+
+        ans = type(data)()
+        for _ in range(n):
+            ans.add(0)
+
+        for i in range(n - 1, -1, -1):
+            v = data.get(i)
+            index = cntArr[v] - 1
+            ans.set(index, v)
+            cntArr[v] -= 1
+
+        for i in range(n):
+            data.set(i, ans.get(i))
+
+        return data

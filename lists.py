@@ -12,6 +12,8 @@ class BaseList(ABC):
         set(index): Sets the index of the item to the given value.
         size(): Returns the number of items in the list.
         swap(el1, el2): Swaps two items of list.
+        max(): Returns the largest item in the list.
+        min(): Returns the smallest item in the list.
 
     """
     @abstractmethod
@@ -38,6 +40,13 @@ class BaseList(ABC):
     def swap(self, index1, index2):
         pass
 
+    @abstractmethod
+    def max(self):
+        pass
+
+    @abstractmethod
+    def min(self):
+        pass
 #list based on array
 
 class ArrayList(BaseList):
@@ -55,6 +64,8 @@ class ArrayList(BaseList):
         get(index): Returns the item at the given index.
         set(index): Sets the index of the item to the given value.
         size(): Returns the number of items in the list.
+        max(): Returns the largest item in the list.
+        min(): Returns the smallest item in the list.
 
     """
 
@@ -112,6 +123,15 @@ class ArrayList(BaseList):
         self.set(index1, value2)
         self.set(index2, value1)
 
+    def max(self):
+        max_value = float('-inf')
+        for el in self._data:
+            if el > max_value:
+                max_value = el
+
+        return max_value
+
+
 
 # implementation of linked lists
 
@@ -139,6 +159,7 @@ class LinkedList(BaseList):
         get(index): Returns the item at the given index.
         set(index, value): Sets the new value to the node in given position(index).
         size(): Returns the number of items in the linked list.
+        max(): Returns the largest value in the linked list.
     """
 
     def __init__(self):
@@ -190,6 +211,31 @@ class LinkedList(BaseList):
             size += 1
         return size
 
+    def max(self):
+        max_value = float('-inf')
+        if not self.head:
+            raise IndexError("Linked list is empty.")
+        current = self.head
+        while current.next:
+            current = current.next
+            if current.data > max_value:
+                max_value = current.data
+
+        return max_value
+
+    def min(self):
+        if not self.head:
+            raise IndexError("Linked list is empty.")
+
+        current = self.head
+        min_value = float('inf')
+        while current.next:
+            current = current.next
+            if current.data < min_value:
+                min_value = current.data
+
+        return min_value
+
 
 # implementation of doubly linked list
 
@@ -220,6 +266,8 @@ class DoublyLinkedList(LinkedList):
         find_node_by_index(index): Returns the node at the given index.
         get(index): returns value of element at given index.
         set(index, value): Sets the new value to the node in given position(index).
+        max(): returns the largest value in the list.
+        min(): returns the smallest value stored in the list.
     """
 
     def __init__(self):
@@ -268,7 +316,7 @@ class DoublyLinkedList(LinkedList):
         if current.next:
             current.next.prev = current.prev
 
-    def find_node_by_index(self, index):
+    def _find_node_by_index(self, index):
         if index < 0 or index >= self.size:
             raise IndexError("Index out of range")
         if index < self.size // 2:
@@ -282,12 +330,36 @@ class DoublyLinkedList(LinkedList):
         return current
 
     def get(self, index):
-        node = self.find_node_by_index(index)
+        node = self._find_node_by_index(index)
         return node.data
 
     def set(self, index, value):
-        node = self.find_node_by_index(index)
+        node = self._find_node_by_index(index)
         node.data = value
 
     def swap(self, el1, el2):
         el1.data, el2.data = el2.data, el1.data
+
+
+    def max(self):
+        if not self.head:
+            raise IndexError("Linked list is empty.")
+        max_value = float('-inf')
+        current = self.head
+        while current.next:
+            if current.data < min:
+                max_value = current.data
+
+        return max_value
+
+    def min(self):
+        if not self.head:
+            raise IndexError("Linked list is empty.")
+        min_value = float('inf')
+        current = self.head
+        while current.next:
+            current = current.next
+            if current.data < min_value:
+                min_value = current.data
+
+        return min_value
