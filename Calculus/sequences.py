@@ -43,7 +43,7 @@ class ManualSequence(Sequence):
         input_sequence = input("Enter elements of your sequence (no separators needed): ")
         input_sequence = input_sequence.split()
         for item in input_sequence:
-            self.sequence.add(item)
+            self.sequence.add(float(item))
 
         self.length = self.sequence.size()
 
@@ -58,17 +58,19 @@ class ManualSequence(Sequence):
 
     def _is_increasing(self):
         is_increasing = False
-        for i in range(0, self.length):
+        for i in range(0, self.length - 1):
             if self.sequence.get(i) < self.sequence.get(i+1):
                 is_increasing = True
+            else:
+                is_increasing = False
 
         return is_increasing
 
     def _is_decreasing(self):
-        is_decreasing = False
-        for i in range(0, self.length):
-            if self.sequence.get(i) > self.sequence.get(i + 1):
-                is_decreasing = True
+        is_decreasing = True
+        for i in range(0, self.length - 1):
+            if self.sequence.get(i) < self.sequence.get(i + 1):
+                is_decreasing = False
 
         return is_decreasing
 
@@ -89,31 +91,22 @@ class ManualSequence(Sequence):
 
     def is_bounded(self):
         if self.sequence.size() < 0:
-            raise IndexError
-        if self.sequence.min() or self.sequence.max():
-            return True
+            return False
 
-        return False
+        return True
 
     def limit(self, to_inf = True):
-        if to_inf:
-            if self.is_monotonic(True):
-                return self.sequence.get(self.length - 1)
-            else:
-                raise ValueError("This sequence is not monotonic")
+        raise NotImplementedError("Limit is defined only for infinite sequences.")
 
-        else:
-            if self.is_monotonic(False):
-                return self.sequence.get(self.length - 1)
-            else:
-                raise ValueError("This sequence is not monotonic")
 
     def partial_sum(self, n):
-        partitial_sum = 0
+        if n > self.length:
+            raise IndexError
+        partial_sum = 0
         for i in range(n):
-            partitial_sum += self.sequence.get(i)
+            partial_sum += self.sequence.get(i)
 
-        return partitial_sum
+        return partial_sum
 
 
 
