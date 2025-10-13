@@ -90,7 +90,7 @@ class ArrayList(BaseList):
         if 0 <= index < self._count:
             return self._data[index]
         else:
-            pass
+            raise IndexError('Index is out of appropriate range.')
 
     def _get_element(self, value):
         for i in range(self.size):
@@ -271,7 +271,6 @@ class DoublyLinkedList(LinkedList):
     def find_node_by_index(self, index):
         if index < 0 or index >= self.size:
             raise IndexError("Index out of range")
-        i = 0
         if index < self.size // 2:
             current = self.head
             for _ in range(index):
