@@ -10,6 +10,7 @@ class Sequence(ABC):
         is_bounded(): returns True if sequence is bounded and False otherwise.
         is_monotonic(): returns True if sequence is monotonic and False otherwise.
         limit(to_inf): returns limit of sequence if to_inf is True.
+        partial_sum(): returns sum of first n elements of sequence.
     """
     @abstractmethod
     def first_k_elements(self, k):
@@ -33,6 +34,7 @@ class Sequence(ABC):
 
 
 class ManualSequence(Sequence):
+
     def __init__(self, list_type):
         self.sequence = list_type()
         self.is_convergent = False

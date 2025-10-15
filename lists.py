@@ -73,6 +73,11 @@ class ArrayList(BaseList):
         self._data = [None] * size
         self.capacity = size
         self._count = 0
+
+    def __iter__(self):
+        for i in range(self._count):
+            yield self._data[i]
+
     def _resize(self):
         self.capacity *= 2
         new_data = [None] * self.capacity
@@ -107,6 +112,8 @@ class ArrayList(BaseList):
         for i in range(self.size):
             if self._data[i] == value:
                 return i
+        return None
+
 
     def set(self, index, value):
         if 0 <= index < self._count:
@@ -125,11 +132,19 @@ class ArrayList(BaseList):
 
     def max(self):
         max_value = float('-inf')
-        for el in self._data:
+        for el in self._data[:self._count]:
             if el > max_value:
                 max_value = el
 
         return max_value
+
+    def min(self):
+        min_value = float('inf')
+        for el in self._data[:self._count]:
+            if el > min_value:
+                min_value = el
+
+        return min_value
 
 
 
@@ -165,6 +180,12 @@ class LinkedList(BaseList):
     def __init__(self):
         self.head = None
 
+    def __iter__(self):
+        current = self.head
+        while current:
+            yield current.data
+            current = current.next
+
     def add(self, item):
         node = Node(item)
         if self.head is None:
@@ -176,6 +197,8 @@ class LinkedList(BaseList):
             current.next = node
 
     def remove(self, index):
+        if index > self.size() or index < 0 or not self.head:
+            raise IndexError('Index is out of appropriate range.')
         i = 0
         current = self.head
         while current.next and i < index:
@@ -199,8 +222,16 @@ class LinkedList(BaseList):
             i += 1
         current.data = value
 
-    def swap(self, el1, el2):
-        el1.data, el2.data = el2.data, el1.data
+    def swap(self, index1, index2):
+        if index1 == index2:
+            return
+        node1 = self.head
+        for _ in range(index1):
+            node1 = node1.next
+        node2 = self.head
+        for _ in range(index2):
+            node2 = node2.next
+        node1.data, node2.data = node2.data, node1.data
 
     @property
     def size(self):
@@ -274,6 +305,12 @@ class DoublyLinkedList(LinkedList):
         super().__init__()
         self.tail = None
 
+    def __iter__(self):
+        current = self.head
+        while current:
+            yield current.data
+            current = current.next
+
     @property
     def size(self):
         size = 0
@@ -337,9 +374,12 @@ class DoublyLinkedList(LinkedList):
         node = self._find_node_by_index(index)
         node.data = value
 
-    def swap(self, el1, el2):
-        el1.data, el2.data = el2.data, el1.data
-
+    def swap(self, index1, index2):
+        if index1 == index2:
+            return
+        node1 = self._find_node_by_index(index1)
+        node2 = self._find_node_by_index(index2)
+        node1.data, node2.data = node2.data, node1.data
 
     def max(self):
         if not self.head:
