@@ -243,14 +243,15 @@ class LinkedList(BaseList):
         return size
 
     def max(self):
-        max_value = float('-inf')
         if not self.head:
             raise IndexError("Linked list is empty.")
-        current = self.head
-        while current.next:
-            current = current.next
+
+        max_value = self.head.data
+        current = self.head.next
+        while current:
             if current.data > max_value:
                 max_value = current.data
+            current = current.next
 
         return max_value
 
@@ -258,12 +259,12 @@ class LinkedList(BaseList):
         if not self.head:
             raise IndexError("Linked list is empty.")
 
-        current = self.head
-        min_value = float('inf')
-        while current.next:
-            current = current.next
+        min_value = self.head.data
+        current = self.head.next
+        while current:
             if current.data < min_value:
                 min_value = current.data
+            current = current.next
 
         return min_value
 
@@ -384,20 +385,22 @@ class DoublyLinkedList(LinkedList):
     def max(self):
         if not self.head:
             raise IndexError("Linked list is empty.")
-        max_value = float('-inf')
-        current = self.head
-        while current.next:
-            if current.data < min:
+
+        max_value = self.head.data
+        current = self.head.next
+        while current:
+            if current.data > max_value:
                 max_value = current.data
+            current = current.next
 
         return max_value
 
     def min(self):
         if not self.head:
             raise IndexError("Linked list is empty.")
-        min_value = float('inf')
-        current = self.head
-        while current.next:
+        min_value = self.head.data
+        current = self.head.next
+        while current:
             current = current.next
             if current.data < min_value:
                 min_value = current.data
