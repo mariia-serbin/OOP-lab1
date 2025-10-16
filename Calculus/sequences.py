@@ -1,105 +1,119 @@
-from abc import ABC, abstractmethod
-from lists import *
-
-class Sequence(ABC):
-
-    """
-    Sequence class is an abstract class made for easier implementing sequences.
-    Methods:
-        first_k_elements(k): returns list of first k elements of sequence.
-        is_bounded(): returns True if sequence is bounded and False otherwise.
-        is_monotonic(): returns True if sequence is monotonic and False otherwise.
-        limit(to_inf): returns limit of sequence if to_inf is True.
-        partial_sum(): returns sum of first n elements of sequence.
-    """
-    @abstractmethod
-    def first_k_elements(self, k):
-        pass
-
-    @abstractmethod
-    def is_monotonic(self, is_decreasing = None):
-        pass
-
-    @abstractmethod
-    def is_bounded(self):
-        pass
-
-    @abstractmethod
-    def limit(self, to_inf = True):
-        pass
-
-    @abstractmethod
-    def partial_sum(self, n):
-        pass
+from lists import ArrayList
+import math
+import json
+import work_with_sage
 
 
-class ManualSequence(Sequence):
+class Sequence:
+    """Клас для послідовностей"""
+    def __init__(self, expression, variable="n", list_type = ArrayList):
+        self.expression = expression
+        self.variable = variable
+        self.list_type = list_type
 
-    def __init__(self, list_type):
-        self.sequence = list_type()
-        self.is_convergent = False
-        self.length = 0
+    # -------------------- Рівень A --------------------
+    def get_expression(self):
+        return self.expression
 
-    def get_sequence(self):
-        input_sequence = input("Enter elements of your sequence (no separators needed): ")
-        input_sequence = input_sequence.split()
-        for item in input_sequence:
-            self.sequence.add(float(item))
+    def set_expression(self, expr):
+        self.expression = expr
 
-        self.length = self.sequence.size()
+    def get_variable(self):
+        return self.variable
 
-    def first_k_elements(self, k):
-        if k > self.length:
-            raise ValueError
+    def set_variable(self, var):
+        self.variable = var
 
-        result = type(self.sequence)()
-        for i in range(k):
-            result.add(self.sequence.get(i))
+    # -------------------- Рівень B --------------------
+    def evaluate(self, n):
+        """Чисельна оцінка елемента послідовності"""
+
+        safe_globals = {"__builtins__": None, "math": math}
+        safe_locals = {self.variable: n}
+        result = eval(self.expression, safe_globals, safe_locals)
+
         return result
 
-    def _is_increasing(self):
-        for i in range(self.length - 1):
-            if self.sequence.get(i) > self.sequence.get(i + 1):
+    def _is_increasing(self, n=1000, steps = 10):
+        for i in range(steps):
+            if self.evaluate(n + i + 1) - self.evaluate(n + i) < 0:
                 return False
-        return True
-
-    def _is_decreasing(self):
-        for i in range(0, self.length - 1):
-            if self.sequence.get(i) < self.sequence.get(i + 1):
-                return  False
 
         return True
 
+    def _is_decreasing(self, n=1000, steps = 10):
+        for i in range(steps):
+            if self.evaluate(n + i + 1) - self.evaluate(n + i) > 0:
+                return False
+
+        return True
 
     def is_monotonic(self, is_increasing = None):
-        if is_increasing:
-            increasing = self._is_increasing()
-            return increasing
+        if is_increasing is None:
+            if self._is_increasing() or self._is_decreasing():
+                return True
+        elif is_increasing:
+            if self._is_increasing():
+                return True
         elif not is_increasing:
-            decreasing = self._is_decreasing()
-            return decreasing
-        else:
-            is_monotonic = False
-            if self._is_decreasing() or self._is_increasing():
-                is_monotonic = True
+            if self._is_decreasing():
+                return True
 
-            return is_monotonic
+        return False
 
-    def is_bounded(self):
-        if self.sequence.size() < 0:
-            return False
+    def is_bounded(self, start = 100, stop = 300, step = 1):
+        results = self.list_type()
+        for i in range(int((stop - start) / step)):
+            x = start + i * step
+            value = self.evaluate(x)
+            if math.isfinite(value):
+                results.add(value)
+            else:
+                continue
 
-        return True
+        max_value = results.max()
+        min_value = results.min()
 
-    def limit(self, to_inf = True):
-        raise NotImplementedError("Limit is defined only for infinite sequences.")
+        if max_value is None or min_value is None:
+            return False, None, None
+        return True, max_value, min_value
 
 
-    def partial_sum(self, n):
-        if n > self.length:
-            raise IndexError
-        partial_sum = 0
-        for i in range(n):
-            partial_sum += self.sequence.get(i)
+    def approximate_limit(self, eps = 1e-6, n0= 1000, iterate = 1000, overflow = 1e6):
+        n = n0
+        prev = self.evaluate(n)
+        for i in range(0, iterate):
+            n += 1
+            curr = self.evaluate(n)
+            if curr > overflow and curr > prev:
+                return float('inf')
+            if curr < -overflow and curr < prev:
+                return float('-inf')
 
-        return partial_sum
+            if abs(curr - prev) < eps:
+                return curr
+
+            prev = curr
+
+        return None
+  # -------------------- Рівень C --------------------
+    def sym_limit(self):
+        code = f"""
+from sage.all import *
+{self.variable} = var('{self.variable}')
+print(limit({self.expression}, {self.variable}, oo))
+"""
+        sage = work_with_sage.SageRemote()
+        return sage.run_code(code)
+
+    def export_to_json(self, path = r'C:\Users\Maria\Documents\GitHub\OOP-lab1\Calculus\results.json'):
+        data = {
+            "expression": self.expression,
+            "variable": self.variable,
+            "approx_limit": self.approximate_limit(),
+            "monotonic": self.is_monotonic(),
+            "bounded": self.is_bounded(),
+            "sym_limit": self.sym_limit()
+        }
+        with open(path, "w") as f:
+            json.dump(data, f, indent=4)
