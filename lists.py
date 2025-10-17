@@ -406,3 +406,36 @@ class DoublyLinkedList(LinkedList):
                 min_value = current.data
 
         return min_value
+
+class LibraryList(BaseList):
+    def __init__(self):
+        self._data = []
+    def add(self, item):
+        self._data.append(item)
+
+    def remove(self, index):
+        if index < 0 or index >= len(self._data):
+            self._data.pop(index)
+        else:
+            raise IndexError("Index out of range")
+
+    def get(self, index):
+        return self._data[index]
+
+    def set(self, index, value):
+        self._data[index] = value
+
+    def size(self):
+        return len(self._data)
+
+    def swap(self, index1, index2):
+        value1, value2 = self.get(index1), self.get(index2)
+        value1, value2 = value2, value1
+
+    def max(self):
+        data = self._data
+        return max(data)
+
+    def min(self):
+        data = self._data
+        return min(data)
