@@ -429,8 +429,7 @@ class LibraryList(BaseList):
         return len(self._data)
 
     def swap(self, index1, index2):
-        value1, value2 = self.get(index1), self.get(index2)
-        value1, value2 = value2, value1
+        self._data[index1], self._data[index2] = self._data[index2], self._data[index1]
 
     def max(self):
         data = self._data
