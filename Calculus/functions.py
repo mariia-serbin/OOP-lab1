@@ -2,6 +2,9 @@ import math
 import json
 import work_with_sage
 from lists import ArrayList
+import matplotlib.pyplot as plt
+import numpy as np
+from typing import List, Optional, Dict, Union, Tuple, Type
 
 class Function:
     """
@@ -32,9 +35,9 @@ class Function:
     a list implementation with `add()`, `max()`, and `min()` methods.
     """
 
-    def __init__(self, expression, variables = None, list_type=ArrayList):
+    def __init__(self, expression, variables, list_type=ArrayList):
         self._expression = expression
-        if variables == None:
+        if variables is None:
             self._variables = ["x"]
         else:
             self._variables = variables
@@ -421,6 +424,46 @@ print(integral(f, {var}))
 """
         sage = work_with_sage.SageRemote()
         return sage.run_code(code)
+
+    def plot(self, var=None, start=0, stop=10, num_points=1000, title=None, xlabel=None, ylabel=None):
+        """
+        Plots the function using Matplotlib.
+
+        @param var Variable to plot (if None and the function has a single variable, it is used automatically).
+        @param start Start of the range for the variable (default: 0).
+        @param stop End of the range for the variable (default: 10).
+        @param num_points Number of points to sample in the range (default: 1000).
+        @param title Title of the plot (optional).
+        @param xlabel Label for the x-axis (optional).
+        @param ylabel Label for the y-axis (optional).
+
+        @details
+        Generates a plot of the function over the specified range using NumPy to create
+        sample points and Matplotlib to visualize the function.
+        """
+        if var is None and len(self._variables) == 1:
+            var = self._variables[0]
+
+        x_vals = np.linspace(start, stop, num_points)
+        y_vals = np.array([self.evaluate(**{var: x}) for x in x_vals])
+
+        plt.figure(figsize=(8, 5))
+        plt.plot(x_vals, y_vals, label=self._expression)
+        plt.grid(True)
+
+        if title:
+            plt.title(title)
+        if xlabel:
+            plt.xlabel(xlabel)
+        else:
+            plt.xlabel(var)
+        if ylabel:
+            plt.ylabel(ylabel)
+        else:
+            plt.ylabel(f"f({var})")
+
+        plt.legend()
+        plt.show()
 
     # -------------------- Експорт --------------------
     def export_to_json(self, path=r'results_function.json'):
