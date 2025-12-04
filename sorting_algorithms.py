@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 from lists import BaseList
+from typing import Optional, List
 #abstract class for sorting algorithms
 class SortingAlgorithm(ABC):
     @abstractmethod
-    def sort(self, data):
+    def sort(self, data: BaseList):
         pass
 
 #must do sorting algorithms (Insertion, Quick, Merge)
@@ -13,8 +14,8 @@ class InsertionSort(SortingAlgorithm):
     Methods:
         sort(data: BaseList) -> BaseList: sorts list using insertion sort.
     """
-    def sort(self, data: BaseList):
-        size = data.size
+    def sort(self, data: BaseList)->None:
+        size: int = data.size()
         for i in range(size):
             key = data.get(i)
             j = i - 1
@@ -31,7 +32,8 @@ class QuickSort(SortingAlgorithm):
             _partition(data:BaseList, lowest: int, highest: int) -> BaseList: for partition
             _quick_sort(data: BaseList, lowest: int, highest: int) -> BaseList: realization of quick sort
     """
-    def _partition(self, data, lowest: int, highest: int):
+    @staticmethod
+    def partition(data: BaseList, lowest: int, highest: int):
         pivot = data.get(highest)
         i = lowest - 1
 
@@ -44,69 +46,70 @@ class QuickSort(SortingAlgorithm):
 
         return i + 1
 
-    def _quick_sort(self, data, lowest, highest):
+    def _quick_sort(self, data: BaseList, lowest: int, highest: int) -> None:
         if lowest < highest:
-            pivot_index = self._partition(data, lowest, highest)
+            pivot_index = self._partition(data, lowest, highest) # type: ignore
 
             self._quick_sort(data, lowest, pivot_index - 1)
             self._quick_sort(data, pivot_index + 1, highest)
 
-    def sort(self, data: BaseList):
+    def sort(self, data: BaseList) -> None:
         self._quick_sort(data, 0, data.size() - 1)
 
 class MergeSort(SortingAlgorithm):
-    def _merge(self, data: BaseList, left, mid, right):
-        n1 = mid - left + 1
-        n2 = right - mid
+    @staticmethod
+    def _merge(data: BaseList, left_idx, mid_idx, right_idx):
+        n1: int = mid_idx - left_idx + 1
+        n2: int = right_idx - mid_idx
 
-        Left = type(data)()
-        Right = type(data)()
+        left: BaseList = type(data)()
+        right: BaseList = type(data)()
 
         for i in range(n1):
-            Left.add(data.get(left + i))
+            left.add(data.get(left_idx + i))
 
         for j in range(n2):
-            Right.add(data.get(mid + j + 1))
+            right.add(data.get(mid_idx + j + 1))
 
-        i, j = 0
-        k = left
+        i, j = 0, 0
+        k = left_idx
 
         while i < n1 and j < n2:
-            if Left.get(i) < Right.get(j):
-                data.set(k, Left.get(i))
+            if left.get(i) < right.get(j):
+                data.set(k, left.get(i))
                 i += 1
             else:
-                data.set(k, Right.get(j))
+                data.set(k, right.get(j))
                 j += 1
             k += 1
 
         while i < n1:
-            data.set(k, Left.get(i))
+            data.set(k, left.get(i))
             i += 1
             k += 1
 
         while j < n2:
-            data.set(k, Right.get(j))
+            data.set(k, right.get(j))
             j += 1
             k += 1
 
     def _merge_sort(self, data, left, right):
         if left < right:
-            mid = (left + right) // 2
+            mid:  int = (left + right) // 2
 
             self._merge_sort(data, left, mid)
             self._merge_sort(data, mid + 1, right)
             self._merge(data, left, mid, right)
 
-    def sort(self, data: BaseList):
+    def sort(self, data: BaseList) -> None:
         self._merge_sort(data, 0, data.size() - 1)
 
 #additional sorting algorithms (Selection, Bubble, 3-way Merge)
 class SelectionSort(SortingAlgorithm):
-    def sort(self, data: BaseList):
-        n = data.size()
+    def sort(self, data: BaseList) -> None:
+        n: int = data.size()
         for i in range(n):
-            min_index = i
+            min_index: int = i
             for j in range(i + 1, n):
                 if data.get(j) < data.get(min_index):
                     min_index = j
@@ -114,23 +117,24 @@ class SelectionSort(SortingAlgorithm):
             data.swap(i, min_index)
 
 class BubbleSort(SortingAlgorithm):
-    def sort(self, data):
-        size = data.size()
+    def sort(self, data: BaseList) -> None:
+        size: int = data.size()
         for i in range(size):
             for j in range(i + 1, size):
                 if data.get(j) < data.get(i):
                     data.swap(i, j)
 
 class ThreeWayMergeSort(SortingAlgorithm):
-    def _merge(self, data, left, mid1, mid2, right):
+    @staticmethod
+    def _merge(data: BaseList, left: int, mid1: int, mid2: int, right: int) -> None:
         size1 = mid1 - left + 1
         size2 = mid2 - mid1
         size3 = right - mid2
 
         #temporary lists for 3 parts
-        left_list = type(data)()
-        middle_list = type(data)()
-        right_list = type(data)()
+        left_list: BaseList = type(data)()
+        middle_list: BaseList = type(data)()
+        right_list: BaseList = type(data)()
 
         i = j = k = 0
         index = left
@@ -145,7 +149,7 @@ class ThreeWayMergeSort(SortingAlgorithm):
                 min_index = 0
             elif j < size2 and middle_list.get(j) < min_value:
                 min_value = middle_list.get(j)
-                min_value = 1
+                min_index = 1
             elif k < size3 and right_list.get(k) < min_value:
                 min_value = right_list.get(k)
                 min_index = 2
@@ -162,10 +166,9 @@ class ThreeWayMergeSort(SortingAlgorithm):
 
             index += 1
 
-    def _three_way_merge(self, data, left, right):
+    def _three_way_merge(self, data: BaseList, left: int, right: int):
 
-        if left < right:
-            left, right = right, left
+        if left >= right: return
 
         mid1 = left + (right - left) // 3
         mid2 = left + 2*(right - left) // 3
@@ -176,14 +179,14 @@ class ThreeWayMergeSort(SortingAlgorithm):
 
         self._merge(data, left, mid1, mid2, right)
 
-    def sort(self, data: BaseList):
-        self._three_way_merge()
+    def sort(self, data: BaseList) -> None:
+        self._three_way_merge(data, 0, data.size() - 1)
 
 #additional sorting algorithms (non-comparison). Bucket Sort, Count Sort
 
-class BucketSort:
+class BucketSort(SortingAlgorithm):
 
-    def sort(self, data: BaseList, num_buckets: int = None):
+    def sort(self, data: BaseList, num_buckets: Optional[int] = None):
         n = data.size()
         if n == 0:
             return data
@@ -191,8 +194,8 @@ class BucketSort:
         if not num_buckets:
             num_buckets = int(n ** 0.5) + 1
 
-        min_val = data.get(0)
-        max_val = data.get(0)
+        min_val: float= data.get(0)
+        max_val: float = data.get(0)
         for i in range(1, n):
             val = data.get(i)
             if val < min_val:
@@ -200,21 +203,21 @@ class BucketSort:
             if val > max_val:
                 max_val = val
 
-        range_size = (max_val - min_val + 1) / num_buckets
+        range_size: float = (max_val - min_val + 1) / num_buckets
 
-        buckets = [type(data)() for _ in range(num_buckets)]
+        buckets: list[BaseList] = [type(data)() for _ in range(num_buckets)]
 
         for i in range(n):
-            value = data.get(i)
-            index = int((value - min_val) / range_size)
+            value:float = data.get(i)
+            index: int  = int((value - min_val) / range_size)
             if index == num_buckets:
                 index -= 1
             buckets[index].add(value)
 
         for b in buckets:
-            InsertionSort.sort(b)
+            InsertionSort().sort(b)
 
-        index = 0
+        index: int = 0
         for b in buckets:
             for i in range(b.size()):
                 data.set(index, b.get(i))
@@ -222,33 +225,30 @@ class BucketSort:
 
         return data
 
-class CountSort:
-    def sort(self, data: BaseList) -> BaseList:
-        n = data.size()
-        if n == 0:
-            return type(data)()
+class CountSort(SortingAlgorithm):
+    def sort(self, data: BaseList) -> None:
+        n: int = data.size()
 
-        max_val = data.max()
+        max_val: int = data.max()
 
-        cntArr = [0] * (max_val + 1)
+        cnt_arr: List[int] = [0] * (max_val + 1)
 
         for i in range(n):
-            cntArr[data.get(i)] += 1
+            cnt_arr[data.get(i)] += 1
 
         for i in range(1, max_val + 1):
-            cntArr[i] += cntArr[i - 1]
+            cnt_arr[i] += cnt_arr[i - 1]
 
-        ans = type(data)()
+        ans: BaseList = type(data)()
         for _ in range(n):
             ans.add(0)
 
         for i in range(n - 1, -1, -1):
-            v = data.get(i)
-            index = cntArr[v] - 1
+            v: int = data.get(i)
+            index: int = cnt_arr[v] - 1
             ans.set(index, v)
-            cntArr[v] -= 1
+            cnt_arr[v] -= 1
 
         for i in range(n):
             data.set(i, ans.get(i))
 
-        return data

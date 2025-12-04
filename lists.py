@@ -133,19 +133,20 @@ class ArrayList(BaseList):
     def max(self):
         max_value = float('-inf')
         for el in self._data[:self._count]:
-            if el > max_value:
+            if isinstance(el, (int, float)) and el > max_value:
                 max_value = el
-
+        if max_value == float('-inf'):
+            raise ValueError("No numeric elements in ArrayList")
         return max_value
 
     def min(self):
         min_value = float('inf')
         for el in self._data[:self._count]:
-            if el > min_value:
+            if isinstance(el, (int, float)) and el < min_value:
                 min_value = el
-
+        if min_value == float('inf'):
+            raise ValueError("No numeric elements in ArrayList")
         return min_value
-
 
 
 # implementation of linked lists
@@ -197,7 +198,7 @@ class LinkedList(BaseList):
             current.next = node
 
     def remove(self, index):
-        if index > self.size() or index < 0 or not self.head:
+        if self.size < index or index < 0 or not self.head:
             raise IndexError('Index is out of appropriate range.')
         i = 0
         current = self.head
@@ -237,7 +238,7 @@ class LinkedList(BaseList):
     def size(self):
         size = 0
         current = self.head
-        while current.next:
+        while current:
             current = current.next
             size += 1
         return size
@@ -316,7 +317,7 @@ class DoublyLinkedList(LinkedList):
     def size(self):
         size = 0
         current = self.head
-        while current.next:
+        while current:
             current = current.next
             size += 1
         return size

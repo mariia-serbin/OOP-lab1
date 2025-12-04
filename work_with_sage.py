@@ -2,11 +2,11 @@ import json
 import requests
 
 class SageRemote:
-    def __init__(self, url="https://sagecell.sagemath.org/service", timeout=20):
-        self.url = url
-        self.timeout = timeout
+    def __init__(self, url: str ="https://sagecell.sagemath.org/service", timeout: int = 20):
+        self.url: str = url
+        self.timeout: int = timeout
 
-    def run_code(self, code):
+    def run_code(self, code: str):
         payload = {"code": code}
         headers = {"Content-Type": "application/json"}
 

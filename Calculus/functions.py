@@ -35,17 +35,17 @@ class Function:
     a list implementation with `add()`, `max()`, and `min()` methods.
     """
 
-    def __init__(self, expression, variables, list_type=ArrayList):
-        self._expression = expression
+    def __init__(self, expression: str, variables: Optional[List[str]], list_type: Type =ArrayList) -> None:
+        self._expression: str = expression
         if variables is None:
-            self._variables = ["x"]
+            self._variables: List[str] = ["x"]
         else:
-            self._variables = variables
+            self._variables: List[str] = variables
 
-        self._list_type = list_type
+        self._list_type: Type = list_type
 
     # -------------------- A --------------------
-    def get_expression(self):
+    def get_expression(self) -> str:
         """
         @brief Returns the stored function expression.
 
@@ -54,7 +54,7 @@ class Function:
 
         return self._expression
 
-    def set_expression(self, expr):
+    def set_expression(self, expr: str) -> None:
         """
         @brief Updates the stored function expression.
 
@@ -63,7 +63,7 @@ class Function:
 
         self._expression = expr
 
-    def get_variables(self):
+    def get_variables(self) -> List[str]:
         """
         @brief Returns the list of variables used in the function.
 
@@ -72,7 +72,7 @@ class Function:
 
         return self._variables
 
-    def set_variables(self, vars_list):
+    def set_variables(self, vars_list: List[str]) -> None:
         """
         @brief Updates the list of variables used in the function.
 
@@ -81,7 +81,7 @@ class Function:
         self._variables = vars_list
 
     # --------------------B--------------------
-    def evaluate(self, **kwargs):
+    def evaluate(self, **kwargs: float) -> float:
         """
         @brief Numerically evaluates the function for the given variable values.
 
@@ -100,11 +100,11 @@ class Function:
         (e.g., "math.sin(x)" or "x**2 + 3").
         """
 
-        safe_globals = {"__builtins__": None, "math": math}
-        safe_locals = {var: kwargs.get(var, 0) for var in self._variables}
+        safe_globals: Dict[str, None] = {"__builtins__": None, "math": math}
+        safe_locals: Dict[str, float] = {var: float(kwargs.get(var, 0)) for var in self._variables}
         return eval(self._expression, safe_globals, safe_locals)
 
-    def _is_increasing(self, var, start=0, steps=10, h=1e-5):
+    def _is_increasing(self, var: str, start: float = 0, steps: int = 10, h: float =1e-5) -> bool:
         """
         @brief Checks whether the function is numerically increasing in a given variable.
 
@@ -121,18 +121,18 @@ class Function:
         @return True if the function is increasing across the tested interval, False otherwise.
         """
         for i in range(steps):
-            x1 = start + i
-            x2 = x1 + h
-            vals = {v: 0 for v in self._variables}
+            x1: float = start + i
+            x2: float = x1 + h
+            vals: Dict[str, float] = {v: 0 for v in self._variables}
             vals[var] = x1
-            f1 = self.evaluate(**vals)
+            f1: float = self.evaluate(**vals)
             vals[var] = x2
             f2 = self.evaluate(**vals)
             if f2 - f1 < 0:
                 return False
         return True
 
-    def _is_decreasing(self, var, start=0, steps=10, h=1e-5):
+    def _is_decreasing(self, var: str, start: float = 0, steps: int = 10, h: float = 1e-5) -> bool:
         """
         @brief Checks whether the function is numerically decreasing in a given variable.
 
@@ -147,18 +147,18 @@ class Function:
         @return True if the function is decreasing, otherwise False.
         """
         for i in range(steps):
-            x1 = start + i
-            x2 = x1 + h
-            vals = {v: 0 for v in self._variables}
+            x1: float = start + i
+            x2:float = x1 + h
+            vals: Dict[str, float] = {v: 0 for v in self._variables}
             vals[var] = x1
-            f1 = self.evaluate(**vals)
+            f1: float = self.evaluate(**vals)
             vals[var] = x2
             f2 = self.evaluate(**vals)
             if f2 - f1 > 0:
                 return False
         return True
 
-    def is_monotonic(self, var=None, is_increasing=None):
+    def is_monotonic(self, var: Optional[str] = None, is_increasing: Optional[bool] = None) -> bool:
         """
         @brief Determines whether the function is monotonic in the given variable.
 
@@ -184,7 +184,7 @@ class Function:
         else:
             return self._is_decreasing(var)
 
-    def is_bounded(self, var=None, start=0, stop=10, step=1):
+    def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 10, step: float = 1) -> Tuple[bool, Optional[float], Optional[float]]:
         """
         @brief Numerically checks whether the function is bounded over a given interval.
 
@@ -207,19 +207,25 @@ class Function:
         if var is None and len(self._variables) == 1:
             var = self._variables[0]
         for i in range(int((stop - start)/step)):
-            x = start + i * step
-            vals = {v: 0 for v in self._variables}
+            x: float = start + i * step
+            vals: Dict[str, float] = {v: 0 for v in self._variables}
             vals[var] = x
-            val = self.evaluate(**vals)
+            val: float = self.evaluate(**vals)
             if math.isfinite(val):
                 results.add(val)
-        max_val = results.max()
-        min_val = results.min()
+        max_val: Optional[float] = results.max()
+        min_val: Optional[float] = results.min()
         if max_val is None or min_val is None:
             return False, None, None
         return True, max_val, min_val
 
-    def approximate_limit(self, var=None, point=float('inf'), n0=1000, iterate=1000, eps=1e-6, step=1, overflow=1e6):
+    def approximate_limit(self, var: Optional[str] = None,
+                          point: Union[float, str] =float('inf'),
+                          n0: int = 1000,
+                          iterate: int = 1000,
+                          eps: float = 1e-6,
+                          step: float = 1,
+                          overflow: float=1e6) -> Optional[float]:
         """
         Numerically approximates the limit of the function as the variable approaches a given point.
 
@@ -241,17 +247,17 @@ class Function:
         if var is None and len(self._variables) == 1:
             var = self._variables[0]
 
-        vals = {v: 0 for v in self._variables}
+        vals: Dict[str, float] = {v: 0 for v in self._variables}
 
         # Handle limit to +infinity
         if point == float('inf'):
-            n = n0
+            n: int = n0
             vals[var] = n
-            prev = self.evaluate(**vals)
+            prev: float = self.evaluate(**vals)
             for _ in range(iterate):
                 n += 1
                 vals[var] = n
-                curr = self.evaluate(**vals)
+                curr: float = self.evaluate(**vals)
                 if curr > overflow and curr > prev:
                     return float('inf')
                 if abs(curr - prev) < eps:
@@ -261,13 +267,13 @@ class Function:
 
         # Handle limit to -infinity
         elif point == float('-inf'):
-            n = -n0
+            n: int = -n0
             vals[var] = n
-            prev = self.evaluate(**vals)
+            prev: float = self.evaluate(**vals)
             for _ in range(iterate):
                 n -= 1
                 vals[var] = n
-                curr = self.evaluate(**vals)
+                curr: float = self.evaluate(**vals)
                 if curr < -overflow and curr < prev:
                     return float('-inf')
                 if abs(curr - prev) < eps:
@@ -277,10 +283,10 @@ class Function:
 
         # Handle finite points
         else:
-            h = step
-            prev = self.evaluate(**{**vals, var: point - h})
+            h: float = step
+            prev: float = self.evaluate(**{**vals, var: point - h})
             for i in range(iterate):
-                curr = self.evaluate(**{**vals, var: point - h / (2 ** i)})
+                curr: float = self.evaluate(**{**vals, var: point - h / (2 ** i)})
                 if abs(curr - prev) < eps:
                     return curr
                 prev = curr
@@ -466,7 +472,7 @@ print(integral(f, {var}))
         plt.show()
 
     # -------------------- Експорт --------------------
-    def export_to_json(self, path=r'results_function.json'):
+    def export_to_json(self, path: str =r'results_function.json') -> None:
         """
         @brief Exports various numerical and symbolic properties of the function to JSON.
 
@@ -485,7 +491,7 @@ print(integral(f, {var}))
 
         @return None.
         """
-        data = {
+        data: Dict[str, Union[str, List[str], bool, Optional[float]]] = {
             "expression": self._expression,
             "variables": self._variables,
             "approx_limit": self.approximate_limit(),

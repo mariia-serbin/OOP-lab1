@@ -110,9 +110,9 @@ class Series:
         """
         code = f"""
 from sage.all import *
-{self._variable} = var('{self._variable}')
+{self.get_variable()} = var('{self.get_variable()}')
 {x} = var('{x}')
-f = {self._expression}
+f = {self.get_expression()}
 taylor(f, {x}, 0, {order})
 """
         sage = work_with_sage.SageRemote()
