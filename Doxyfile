@@ -15,7 +15,7 @@ EXTRACT_PRIVATE        = YES
 EXTRACT_STATIC        = YES
 EXTRACT_PACKAGE        = NO
 EXTRACT_LOCAL_METHODS  = NO
-INPUT                  = .
+INPUT                  = . Calculus
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.md \
                          *.py \
