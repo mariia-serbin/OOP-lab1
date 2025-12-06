@@ -1,3 +1,17 @@
+"""!
+@file sorting_algorithms.py
+@brief Sorting algorithms module.
+@details Contains abstract base class `SortingAlgorithm` and multiple concrete implementations,
+         including InsertionSort, QuickSort, MergeSort, ThreeWayMergeSort, SelectionSort,
+         BubbleSort, BucketSort, and CountSort. Each class provides a `sort` method for sorting
+         lists based on the BaseList interface. Supports comparison-based and non-comparison-based
+         algorithms, with internal handling of list operations and indices.
+@author
+Maria Serbin
+@date
+06.12.2025
+"""
+
 from abc import ABC, abstractmethod
 from lists import BaseList
 from typing import Optional, List
