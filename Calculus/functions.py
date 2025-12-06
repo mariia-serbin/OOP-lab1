@@ -184,7 +184,7 @@ class Function:
         else:
             return self._is_decreasing(var)
 
-    def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 10, step: float = 1) -> Tuple[bool, Optional[float], Optional[float]]:
+    def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 1000, step: float = 1) -> Tuple[bool, Optional[float], Optional[float]]:
         """
         @brief Numerically checks whether the function is bounded over a given interval.
 
@@ -216,6 +216,8 @@ class Function:
         max_val: Optional[float] = results.max()
         min_val: Optional[float] = results.min()
         if max_val is None or min_val is None:
+            return False, None, None
+        elif max_val > 1e6:
             return False, None, None
         return True, max_val, min_val
 
