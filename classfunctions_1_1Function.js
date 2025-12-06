@@ -1,6 +1,5 @@
 var classfunctions_1_1Function =
 [
-    [ "__init__", "classfunctions_1_1Function.html#a38bc5c1f1e133b7f52db67a113706597", null ],
     [ "_is_decreasing", "classfunctions_1_1Function.html#af216ae9bfda4a9fcd993d84890a74fdd", null ],
     [ "_is_increasing", "classfunctions_1_1Function.html#acd9b0a92c2ec1ec7350345a3e8373eca", null ],
     [ "approximate_limit", "classfunctions_1_1Function.html#ace592a27cda7d27f1569c14bc67cc530", null ],
@@ -17,7 +16,5 @@ var classfunctions_1_1Function =
     [ "plot", "classfunctions_1_1Function.html#a26e4ac9d14024bffec3c6420bc6742ea", null ],
     [ "set_expression", "classfunctions_1_1Function.html#a60ad4d540f7d72a9fe5ba117a995e249", null ],
     [ "set_variables", "classfunctions_1_1Function.html#ab40f91f8d3681a06bb5cb39601db81d9", null ],
-    [ "sym_limit", "classfunctions_1_1Function.html#a19cbf49cc1e55339482f88d34060a349", null ],
-    [ "_expression", "classfunctions_1_1Function.html#a39ffb1d18314be1de6c9cf9d43810393", null ],
-    [ "_variables", "classfunctions_1_1Function.html#aeba51a17614f329f48180f1376e253b9", null ]
+    [ "sym_limit", "classfunctions_1_1Function.html#a19cbf49cc1e55339482f88d34060a349", null ]
 ];

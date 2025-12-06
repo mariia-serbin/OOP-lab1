@@ -1,6 +1,6 @@
 var sorting__algorithms_8py =
 [
-    [ "sorting_algorithms.SortingAlgorithm", "classsorting__algorithms_1_1SortingAlgorithm.html", "classsorting__algorithms_1_1SortingAlgorithm" ],
+    [ "sorting_algorithms.SortingAlgorithm", "classsorting__algorithms_1_1SortingAlgorithm.html", null ],
     [ "sorting_algorithms.InsertionSort", "classsorting__algorithms_1_1InsertionSort.html", "classsorting__algorithms_1_1InsertionSort" ],
     [ "sorting_algorithms.QuickSort", "classsorting__algorithms_1_1QuickSort.html", "classsorting__algorithms_1_1QuickSort" ],
     [ "sorting_algorithms.MergeSort", "classsorting__algorithms_1_1MergeSort.html", "classsorting__algorithms_1_1MergeSort" ],
