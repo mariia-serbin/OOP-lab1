@@ -6,7 +6,7 @@ var searchData=
   ['sequence_3',['Sequence',['../classsequences_1_1Sequence.html',1,'sequences']]],
   ['sequences_4',['1. Sequences',['../md_README.html#autotoc_md4',1,'']]],
   ['sequences_2epy_5',['sequences.py',['../sequences_8py.html',1,'']]],
-  ['series_6',['series',['../md_README.html#autotoc_md5',1,'2. Series'],['../classseries_1_1Series.html',1,'series.Series']]],
+  ['series_6',['series',['../md_README.html#autotoc_md5',1,'2. Series'],['../classseries_1_1Series.html',1,'series.Series'],['../namespaceseries.html',1,'series']]],
   ['set_7',['set',['../classlists_1_1DoublyLinkedList.html#acd54a06b67e832440336c8fde4510422',1,'lists.DoublyLinkedList.set()'],['../classlists_1_1LibraryList.html#af3408fb1e698ebbc1cef64b3ddf2422d',1,'lists.LibraryList.set()'],['../classlists_1_1LinkedList.html#a486855f4835fb92d0d5a8462e3192521',1,'lists.LinkedList.set()'],['../classlists_1_1ArrayList.html#a5637120bafc721652b8d23d6aad19624',1,'lists.ArrayList.set()'],['../classlists_1_1BaseList.html#afe0ea66ad13c330bf8088ab8261a095a',1,'lists.BaseList.set()']]],
   ['set_5fexpression_8',['set_expression',['../classfunctions_1_1Function.html#a60ad4d540f7d72a9fe5ba117a995e249',1,'functions.Function.set_expression()'],['../classsequences_1_1Sequence.html#a9c323cfb746964c0e00c87a7e4726b6f',1,'sequences.Sequence.set_expression()'],['../classseries_1_1Series.html#a91cc7332f04b16eeb5ca52ea9b085118',1,'series.Series.set_expression()']]],
   ['set_5fvariable_9',['set_variable',['../classsequences_1_1Sequence.html#ae07c3a63b999796e2c86615e6c7fa613',1,'sequences.Sequence.set_variable()'],['../classseries_1_1Series.html#acfd9703a320dd1fe87fdddaea4d076b3',1,'series.Series.set_variable()']]],

@@ -1,6 +1,6 @@
 var annotated_dup =
 [
-    [ "functions", null, [
+    [ "functions", "namespacefunctions.html", [
       [ "Function", "classfunctions_1_1Function.html", "classfunctions_1_1Function" ]
     ] ],
     [ "lists", null, [
@@ -15,7 +15,7 @@ var annotated_dup =
     [ "sequences", null, [
       [ "Sequence", "classsequences_1_1Sequence.html", "classsequences_1_1Sequence" ]
     ] ],
-    [ "series", null, [
+    [ "series", "namespaceseries.html", [
       [ "Series", "classseries_1_1Series.html", "classseries_1_1Series" ]
     ] ],
     [ "sorting_algorithms", null, [
