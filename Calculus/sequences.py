@@ -19,7 +19,19 @@ from typing import Optional, Tuple, Any, Type
 
 
 class Sequence:
-    """Клас для послідовностей"""
+
+    """
+    @class Series
+    @brief Class for numerical series: convergence checking and Taylor expansions.
+
+    @details
+    This class provides tools to work with numerical series defined by a general expression.
+    It allows:
+      - Evaluating individual terms
+      - Approximate convergence checking via partial sums
+      - Computing Taylor series expansions via SageMath
+      - Exporting results to JSON
+    """
     def __init__(self, expression: str,
                  variable: str = "n",
                  list_type: Type[ArrayList] = ArrayList):
