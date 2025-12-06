@@ -1,12 +1,12 @@
 var hierarchy =
 [
-    [ "functions.Function", "classfunctions_1_1Function.html", null ],
+    [ "Function", "classFunction.html", null ],
     [ "lists.Node", "classlists_1_1Node.html", [
       [ "lists.DoublyNode", "classlists_1_1DoublyNode.html", null ]
     ] ],
     [ "work_with_sage.SageRemote", "classwork__with__sage_1_1SageRemote.html", null ],
-    [ "sequences.Sequence", "classsequences_1_1Sequence.html", null ],
-    [ "series.Series", "classseries_1_1Series.html", null ],
+    [ "Sequence", "classSequence.html", null ],
+    [ "Series", "classSeries.html", null ],
     [ "ABC", null, [
       [ "lists.BaseList", "classlists_1_1BaseList.html", [
         [ "lists.ArrayList", "classlists_1_1ArrayList.html", null ],

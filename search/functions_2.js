@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['derivative_0',['derivative',['../classfunctions_1_1Function.html#ada3e7b158353047e0955d167f39df9f5',1,'functions::Function']]]
+  ['max_0',['max',['../classlists_1_1BaseList.html#a304d7d312a4f443588df09bbe83587d0',1,'lists.BaseList.max()'],['../classlists_1_1ArrayList.html#a9463df46f5ddf4203bf1b33bb00b107d',1,'lists.ArrayList.max()'],['../classlists_1_1LinkedList.html#a0a828b3b2a143cb52ad221158e2a4b53',1,'lists.LinkedList.max()'],['../classlists_1_1DoublyLinkedList.html#a6e396af09d03e26b56a221142ac1f35d',1,'lists.DoublyLinkedList.max()'],['../classlists_1_1LibraryList.html#a8a3d785b2e7f16bbbea9add1dee1eb3a',1,'lists.LibraryList.max()']]],
+  ['min_1',['min',['../classlists_1_1BaseList.html#a882a316c42bfd9b441e41c62b6a1c14a',1,'lists.BaseList.min()'],['../classlists_1_1ArrayList.html#a86b99d9ffeec68c91e91bf45a70df87e',1,'lists.ArrayList.min()'],['../classlists_1_1LinkedList.html#aac4e22f69188a2e3e432f4c04cf2ba30',1,'lists.LinkedList.min()'],['../classlists_1_1DoublyLinkedList.html#a91f34d6802e283efc5a8f7d293ff8a8c',1,'lists.DoublyLinkedList.min()'],['../classlists_1_1LibraryList.html#af0111dd3e59c470d6529800682ab4181',1,'lists.LibraryList.min()']]]
 ];
