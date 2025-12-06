@@ -1,0 +1,13 @@
+<map id="lists.BaseList" name="lists.BaseList">
+<area shape="rect" id="Node000001" title="Abstract base class for all types of lists." alt="" coords="147,79,255,104"/>
+<area shape="rect" id="Node000003" href="$classlists_1_1ArrayList.html" title="List implementation based on arrays." alt="" coords="5,152,116,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,113,85,154,82,149,165,108"/>
+<area shape="rect" id="Node000004" href="$classlists_1_1LibraryList.html" title="List implementation using Python&#39;s built&#45;in list." alt="" coords="140,152,261,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,118,203,152,198,152,198,118"/>
+<area shape="rect" id="Node000005" href="$classlists_1_1LinkedList.html" title="Singly linked list implementation." alt="" coords="285,152,404,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="237,108,322,149,320,154,235,112"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="176,5,225,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,44,203,79,198,79,198,44"/>
+<area shape="rect" id="Node000006" href="$classlists_1_1DoublyLinkedList.html" title="Doubly linked list implementation." alt="" coords="263,225,427,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="347,191,347,225,342,225,342,191"/>
+</map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['technical_20notes_0',['Technical Notes',['../md_README.html#autotoc_md13',1,'']]],
-  ['to_20run_1',['How to Run',['../md_README.html#autotoc_md16',1,'']]]
+  ['partition_0',['partition',['../classsorting__algorithms_1_1QuickSort.html#a533c8cfb59f0a8ab029b62d084344d9f',1,'sorting_algorithms::QuickSort']]],
+  ['program_20structure_1',['Program Structure',['../md_README.html#autotoc_md11',1,'']]]
 ];

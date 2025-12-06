@@ -1,0 +1,9 @@
+<map id="lists.DoublyLinkedList" name="lists.DoublyLinkedList">
+<area shape="rect" id="Node000001" title="Doubly linked list implementation." alt="" coords="5,225,169,251"/>
+<area shape="rect" id="Node000002" href="$classlists_1_1LinkedList.html" title="Singly linked list implementation." alt="" coords="28,152,147,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,191,90,225,85,225,85,191"/>
+<area shape="rect" id="Node000003" href="$classlists_1_1BaseList.html" title="Abstract base class for all types of lists." alt="" coords="33,79,141,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,118,90,152,85,152,85,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="63,5,112,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,44,90,79,85,79,85,44"/>
+</map>
