@@ -42,6 +42,11 @@ var NAVTREE =
         [ "How to Run", "md_README.html#autotoc_md16", [
           [ "JSON Export Locations", "md_README.html#autotoc_md17", null ]
         ] ]
+      ] ],
+      [ "Documentation", "md_README.html#autotoc_md18", [
+        [ "Viewing the Documentation", "md_README.html#autotoc_md19", null ],
+        [ "Automation", "md_README.html#autotoc_md20", null ],
+        [ "Local Documentation Generation", "md_README.html#autotoc_md21", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
