@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "functions", null, [
+      [ "Function", "classfunctions_1_1Function.html", "classfunctions_1_1Function" ]
+    ] ],
     [ "lists", null, [
       [ "ArrayList", "classlists_1_1ArrayList.html", "classlists_1_1ArrayList" ],
       [ "BaseList", "classlists_1_1BaseList.html", "classlists_1_1BaseList" ],
@@ -8,6 +11,12 @@ var annotated_dup =
       [ "LibraryList", "classlists_1_1LibraryList.html", "classlists_1_1LibraryList" ],
       [ "LinkedList", "classlists_1_1LinkedList.html", "classlists_1_1LinkedList" ],
       [ "Node", "classlists_1_1Node.html", null ]
+    ] ],
+    [ "sequences", null, [
+      [ "Sequence", "classsequences_1_1Sequence.html", "classsequences_1_1Sequence" ]
+    ] ],
+    [ "series", null, [
+      [ "Series", "classseries_1_1Series.html", "classseries_1_1Series" ]
     ] ],
     [ "sorting_algorithms", null, [
       [ "BubbleSort", "classsorting__algorithms_1_1BubbleSort.html", "classsorting__algorithms_1_1BubbleSort" ],
