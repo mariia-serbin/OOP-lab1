@@ -5,7 +5,7 @@ from sorting_algorithms import *
 from Calculus.sequences import Sequence
 from Calculus.series import Series
 from Calculus.functions import Function
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Dict
 
 
 CURRENT_LIST_TYPE = ArrayList
@@ -378,7 +378,11 @@ def menu_functions() -> None:
         print("4. Integral (Single variable only)")
         print("5. Gradient (Multi-variable)")
         print("6. Export to JSON")
-        print("7. Back to Main Menu")
+        print("7. Check Monotonicity")
+        print("8. Check Boundedness")
+        print("9. Evaluate at Point")
+        print("10. Approximate limit.")
+        print("11. Back to Main Menu.")
 
         choice: str = input("Your choice: ")
 
@@ -484,7 +488,107 @@ def menu_functions() -> None:
                 except Exception as e:
                     print(f"Error saving: {e}")
 
+
         elif choice == '7':
+
+            # Check Monotonicity
+
+            try:
+
+                var_check = variables[0] if len(variables) == 1 else input(
+                    f"Choose variable ({', '.join(variables)}): ")
+
+                direction_input = input(
+                    "Check increasing (i), decreasing (d), or both (b)? [b]: ").strip().lower() or 'b'
+
+                if direction_input == 'i':
+
+                    direction = True
+
+                elif direction_input == 'd':
+
+                    direction = False
+
+                else:
+
+                    direction = None
+
+                result = func.is_monotonic(var=var_check, is_increasing=direction)
+
+                print(f"Monotonicity check for {var_check}: {result}")
+
+            except Exception as e:
+
+                print(f"Error checking monotonicity: {e}")
+
+
+        elif choice == '8':
+
+            # Check Boundedness
+
+            try:
+
+                var_check = variables[0] if len(variables) == 1 else input(
+                    f"Choose variable ({', '.join(variables)}): ")
+
+                start = float(input("Start of interval [default 0]: ") or 0)
+
+                stop = float(input("End of interval [default 10000]: ") or 10000)
+
+                step = float(input("Step [default 100]: ") or 100)
+
+                bounded, max_val, min_val = func.is_bounded(var=var_check, start=start, stop=stop, step=step)
+
+                print(f"Bounded: {bounded}, Max: {max_val}, Min: {min_val}")
+
+            except Exception as e:
+
+                print(f"Error checking boundedness: {e}")
+
+
+        elif choice == '9':
+
+            # Evaluate at Point
+
+            try:
+
+                vals: Dict[str, float] = {}
+
+                for v in variables:
+                    vals[v] = float(input(f"Enter value for {v}: "))
+
+                result = func.evaluate(**vals)
+
+                print(f"Function value at given point: {result}")
+
+            except Exception as e:
+
+                print(f"Error evaluating function: {e}")
+
+
+        elif choice == '10':
+            try:
+                var_check = variables[0] if len(variables) == 1 else input(
+                    f"Choose variable ({', '.join(variables)}): ")
+                point_input = input("Enter point (number, 'inf', '-inf') [default 'inf']: ").strip() or 'inf'
+                if point_input == 'inf':
+                    point = float('inf')
+                elif point_input == '-inf':
+                    point = float('-inf')
+                else:
+                    point = float(point_input)
+
+                eps = float(input("Enter tolerance eps [default 1e-6]: ") or 1e-6)
+                step = float(input("Step size [default 1]: ") or 1)
+                n0 = int(input("Starting point n0 [default 1000]: ") or 1000)
+                iterate = int(input("Number of iterations [default 1000]: ") or 1000)
+
+                result = func.approximate_limit(var=var_check, point=point, eps=eps, step=step, n0=n0, iterate=iterate)
+                print(f"Approximate limit at {point}: {result}")
+            except Exception as e:
+                print(f"Error computing approximate limit: {e}")
+
+        elif choice == '11':
             break
 
         else:
