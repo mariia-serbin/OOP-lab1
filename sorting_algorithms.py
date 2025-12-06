@@ -9,12 +9,36 @@ class SortingAlgorithm(ABC):
 
 #must do sorting algorithms (Insertion, Quick, Merge)
 class InsertionSort(SortingAlgorithm):
-    """
-    Insertion Sort algorithm.
-    Methods:
-        sort(data: BaseList) -> BaseList: sorts list using insertion sort.
+    """!
+    @brief Insertion Sort algorithm.
+    @details Insertion Sort builds the final sorted list one item at a time.
+             It iterates over the list and inserts each element into its correct position
+             relative to the elements before it. This algorithm is efficient for small datasets
+             or lists that are already mostly sorted.
+             More info: https://www.geeksforgeeks.org/dsa/insertion-sort-algorithm/
     """
     def sort(self, data: BaseList)->None:
+
+        """!
+        @brief Sorts the given list using insertion sort.
+        @param data List to sort (BaseList instance).
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import InsertionSort
+
+        lst = ArrayList()
+        lst.add(5)
+        lst.add(2)
+        lst.add(8)
+
+        InsertionSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 2 5 8
+        @endcode
+        """
         size: int = data.size()
         for i in range(size):
             key = data.get(i)
@@ -25,15 +49,25 @@ class InsertionSort(SortingAlgorithm):
             data.set(j+1, key)
 
 class QuickSort(SortingAlgorithm):
-    """"
-    Quick Sort algorithm.
-    Methods:
-        sort(data: BaseList) -> BaseList: sorts list using quick sort and uses protected methods:
-            _partition(data:BaseList, lowest: int, highest: int) -> BaseList: for partition
-            _quick_sort(data: BaseList, lowest: int, highest: int) -> BaseList: realization of quick sort
+    """!
+    @brief Quick Sort algorithm.
+    @details Quick Sort is a divide-and-conquer sorting algorithm. It works by selecting a "pivot" element
+             from the list and partitioning the other elements into two sublists: those less than the pivot
+             and those greater than the pivot. The sublists are then recursively sorted. This method is
+             efficient for large datasets and has an average time complexity of O(n log n).
+             Worst-case time complexity is O(n^2), which can be mitigated by choosing a good pivot strategy.
+             More info: https://www.geeksforgeeks.org/dsa/quick-sort-algorithm/
     """
     @staticmethod
     def partition(data: BaseList, lowest: int, highest: int):
+
+        """!
+        @brief Partitions the list for Quick Sort.
+        @param data List to partition.
+        @param lowest Starting index.
+        @param highest Ending index.
+        @return Index of the pivot element after partition.
+        """
         pivot = data.get(highest)
         i = lowest - 1
 
@@ -54,9 +88,39 @@ class QuickSort(SortingAlgorithm):
             self._quick_sort(data, pivot_index + 1, highest)
 
     def sort(self, data: BaseList) -> None:
+
+        """!
+        @brief Sorts the list using Quick Sort.
+        @param data List to sort.
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import QuickSort
+
+        lst = ArrayList()
+        lst.add(5)
+        lst.add(2)
+        lst.add(8)
+
+        QuickSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 2 5 8
+        @endcode
+        """
         self._quick_sort(data, 0, data.size() - 1)
 
 class MergeSort(SortingAlgorithm):
+    """!
+    @brief Merge Sort algorithm.
+    @details Merge Sort is a divide-and-conquer, comparison-based sorting algorithm.
+             The list is recursively divided into two halves until each sublist contains a single element.
+             Then, the sublists are merged back together in a sorted manner.
+             Merge Sort is stable and works efficiently for large datasets with guaranteed O(n log n) time complexity.
+             More info: https://www.geeksforgeeks.org/dsa/merge-sort/
+    """
+
     @staticmethod
     def _merge(data: BaseList, left_idx, mid_idx, right_idx):
         n1: int = mid_idx - left_idx + 1
@@ -102,11 +166,61 @@ class MergeSort(SortingAlgorithm):
             self._merge(data, left, mid, right)
 
     def sort(self, data: BaseList) -> None:
+
+        """!
+        @brief Sorts the list using Merge Sort.
+        @param data List to sort.
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import MergeSort
+
+        lst = ArrayList()
+        lst.add(5)
+        lst.add(2)
+        lst.add(8)
+
+        MergeSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 2 5 8
+        @endcode
+        """
         self._merge_sort(data, 0, data.size() - 1)
 
 #additional sorting algorithms (Selection, Bubble, 3-way Merge)
 class SelectionSort(SortingAlgorithm):
+    """!
+    @brief Selection Sort algorithm.
+    @details Selection Sort is a comparison-based sorting algorithm.
+             The main idea is to repeatedly find the minimum element from the unsorted part of the list
+             and move it to the beginning. This process continues until the list is fully sorted.
+             Selection Sort is not stable and has a time complexity of O(n^2), making it inefficient
+             for large datasets.
+             More info: https://www.geeksforgeeks.org/dsa/selection-sort-algorithm-2/
+    """
     def sort(self, data: BaseList) -> None:
+        """!
+        @brief Sorts the list using Selection Sort.
+        @param data List to sort (BaseList instance).
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import SelectionSort
+
+        lst = ArrayList()
+        lst.add(5)
+        lst.add(2)
+        lst.add(8)
+
+        SelectionSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 2 5 8
+        @endcode
+        """
         n: int = data.size()
         for i in range(n):
             min_index: int = i
@@ -117,7 +231,40 @@ class SelectionSort(SortingAlgorithm):
             data.swap(i, min_index)
 
 class BubbleSort(SortingAlgorithm):
+    """!
+    @brief Bubble Sort algorithm.
+    @details Bubble Sort is a simple comparison-based sorting algorithm.
+             The main idea is to repeatedly iterate through the list,
+             compare adjacent elements, and swap them if they are in the wrong order.
+             As a result, larger elements "bubble up" to the end of the list.
+
+             Bubble Sort is stable, but it has a time complexity of O(n^2),
+             which makes it inefficient for large datasets. It is mainly used
+             for educational purposes or very small inputs.
+
+             More info: https://www.geeksforgeeks.org/dsa/bubble-sort-algorithm/
+    """
     def sort(self, data: BaseList) -> None:
+        """!
+        @brief Sorts the list using Bubble Sort.
+        @param data List to sort (BaseList instance).
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import BubbleSort
+
+        lst = ArrayList()
+        lst.add(3)
+        lst.add(1)
+        lst.add(4)
+
+        BubbleSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 1 3 4
+        @endcode
+        """
         size: int = data.size()
         for i in range(size):
             for j in range(i + 1, size):
@@ -125,6 +272,23 @@ class BubbleSort(SortingAlgorithm):
                     data.swap(i, j)
 
 class ThreeWayMergeSort(SortingAlgorithm):
+
+    """!
+    @brief Three-Way Merge Sort algorithm.
+    @details Three-Way Merge Sort is an extended version of the classic Merge Sort.
+             Instead of splitting the array into 2 parts, this algorithm splits it into
+             **three equal segments**, recursively sorts each of them, and then merges
+             the three sorted segments into one.
+
+             The main idea is reducing the depth of recursion by increasing the number
+             of partitions. The algorithm still maintains a time complexity of O(n log n),
+             but with base 3 instead of 2, which leads to slightly fewer recursion levels.
+
+             This algorithm is stable and performs well on large datasets; however,
+             its memory usage is higher due to additional temporary lists.
+
+             More info: https://www.geeksforgeeks.org/dsa/3-way-merge-sort/
+    """
     @staticmethod
     def _merge(data: BaseList, left: int, mid1: int, mid2: int, right: int) -> None:
         size1 = mid1 - left + 1
@@ -180,13 +344,78 @@ class ThreeWayMergeSort(SortingAlgorithm):
         self._merge(data, left, mid1, mid2, right)
 
     def sort(self, data: BaseList) -> None:
+
+        """!
+        @brief Sorts the list using Three-Way Merge Sort.
+        @param data List to sort (BaseList instance).
+
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import ThreeWayMergeSort
+
+        lst = ArrayList()
+        lst.add(9)
+        lst.add(3)
+        lst.add(7)
+        lst.add(1)
+
+        ThreeWayMergeSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 1 3 7 9
+        @endcode
+        """
         self._three_way_merge(data, 0, data.size() - 1)
 
 #additional sorting algorithms (non-comparison). Bucket Sort, Count Sort
 
 class BucketSort(SortingAlgorithm):
+    """!
+    @brief Bucket Sort algorithm.
+    @details Bucket Sort is a distribution-based sorting algorithm.
+             It divides all input elements into a fixed number of "buckets"
+             based on their value range. Each bucket stores elements that fall
+             into the same interval. After distribution, each bucket is sorted
+             individually (commonly using Insertion Sort), and finally all
+             buckets are concatenated to form the final sorted list.
+
+             This algorithm is most efficient when sorting uniformly distributed
+             floating-point or integer data. In the best case it works in O(n)
+             time, but performance depends heavily on choosing an appropriate
+             number of buckets.
+
+             More info: https://www.geeksforgeeks.org/dsa/bucket-sort-2/
+    """
 
     def sort(self, data: BaseList, num_buckets: Optional[int] = None):
+
+        """!
+        @brief Sorts the list using Bucket Sort.
+        @param data List to sort (BaseList instance).
+        @param num_buckets Optional manual specification of the number of buckets.
+                           If not provided, it is chosen automatically based on the
+                           data size.
+
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import BucketSort
+
+        lst = ArrayList()
+        lst.add(0.25)
+        lst.add(0.1)
+        lst.add(0.9)
+        lst.add(0.4)
+
+        BucketSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 0.1 0.25 0.4 0.9
+        @endcode
+        """
         n = data.size()
         if n == 0:
             return data
@@ -226,7 +455,47 @@ class BucketSort(SortingAlgorithm):
         return data
 
 class CountSort(SortingAlgorithm):
+    """!
+    @brief Counting Sort algorithm.
+    @details Counting Sort is an integer sorting algorithm that works by counting
+             the number of occurrences of each value in the input list.
+
+             The main idea is to create an auxiliary array (count array) where each
+             index corresponds to a value from the input, and stores how many times
+             that value appears. Then, using prefix sums, the algorithm determines
+             the correct position of each element in the output list.
+
+             Counting Sort runs in O(n + k) time, where k is the range of input
+             values. It is extremely efficient when the range of values is small
+             relative to the number of elements. The algorithm is stable if
+             implemented from right to left (as in this version).
+
+             More info: https://www.geeksforgeeks.org/dsa/counting-sort/
+    """
     def sort(self, data: BaseList) -> None:
+
+        """!
+        @brief Sorts the list using Counting Sort.
+        @param data List to sort (BaseList instance). Must contain **non-negative integers**.
+
+        @par Example:
+        @code
+        from lists import ArrayList
+        from sorting_algorithms import CountSort
+
+        lst = ArrayList()
+        lst.add(4)
+        lst.add(2)
+        lst.add(2)
+        lst.add(1)
+
+        CountSort().sort(lst)
+
+        for i in range(lst.size()):
+            print(lst.get(i))
+        # Output: 1 2 2 4
+        @endcode
+        """
         n: int = data.size()
 
         max_val: int = data.max()
