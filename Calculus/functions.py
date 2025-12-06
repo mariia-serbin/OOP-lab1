@@ -1,3 +1,24 @@
+"""
+@file function.py
+@brief Implements the Function class for numerical and symbolic computations.
+
+@details
+This file contains the `Function` class which allows:
+- numerical evaluation of mathematical expressions,
+- monotonicity and boundedness checks,
+- numerical limit approximation,
+- symbolic differentiation (full and partial),
+- symbolic integration,
+- symbolic limit calculation using SageMath,
+- gradient computation,
+- plotting using Matplotlib,
+- exporting results to JSON.
+@author
+Maria Serbin
+@date
+06.12.2025
+"""
+
 import math
 import json
 import work_with_sage

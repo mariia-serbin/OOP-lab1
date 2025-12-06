@@ -1,3 +1,19 @@
+"""
+@file series.py
+@brief Implements the Series class for numerical series and Taylor expansions.
+
+@details
+Contains the Series class with:
+- evaluation of individual terms,
+- approximate convergence checking,
+- symbolic Taylor series expansion (via SageMath),
+- exporting results to JSON.
+@author
+Maria Serbin
+@date
+06.12.2025
+"""
+
 from lists import ArrayList
 import math
 import json
