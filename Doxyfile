@@ -1,6 +1,6 @@
 # Doxyfile 1.15.0
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "Matrices operations"
+PROJECT_NAME           = "Math and sorting system"
 PROJECT_NUMBER         = 1.0
 PROJECT_BRIEF          = Documentation for python project (math and sorting system)
 OUTPUT_DIRECTORY       =docs
