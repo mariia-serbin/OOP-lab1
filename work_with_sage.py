@@ -24,7 +24,7 @@ class SageRemote:
              calculations, algebraic manipulations, numerical evaluations, and
              other SageMath-supported computations without installing Sage locally.
     """
-    def __init__(self, url: str ="https://sagecell.sagemath.org/service", timeout: int = 20):
+    def __init__(self, url: str ="https://sagecell.mathcell.org/service", timeout: int = 20):
         self.url: str = url
         self.timeout: int = timeout
 
