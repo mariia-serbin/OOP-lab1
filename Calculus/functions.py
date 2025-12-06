@@ -1,4 +1,4 @@
-"""
+"""!
 @file function.py
 @brief Implements the Function class for numerical and symbolic computations.
 
@@ -28,7 +28,7 @@ import numpy as np
 from typing import List, Optional, Dict, Union, Tuple, Type
 
 class Function:
-    """
+    """!
     @class Function
     @brief Represents a mathematical function defined by a string expression.
 
@@ -67,7 +67,7 @@ class Function:
 
     # -------------------- A --------------------
     def get_expression(self) -> str:
-        """
+        """!
         @brief Returns the stored function expression.
 
         @return String representing the function expression.
@@ -76,7 +76,7 @@ class Function:
         return self._expression
 
     def set_expression(self, expr: str) -> None:
-        """
+        """!
         @brief Updates the stored function expression.
 
         @param expr The new expression string.
@@ -85,7 +85,7 @@ class Function:
         self._expression = expr
 
     def get_variables(self) -> List[str]:
-        """
+        """!
         @brief Returns the list of variables used in the function.
 
         @return A list of variable names.
@@ -94,7 +94,7 @@ class Function:
         return self._variables
 
     def set_variables(self, vars_list: List[str]) -> None:
-        """
+        """!
         @brief Updates the list of variables used in the function.
 
         @param vars_list A list of variable names.
@@ -103,7 +103,7 @@ class Function:
 
     # --------------------B--------------------
     def evaluate(self, **kwargs: float) -> float:
-        """
+        """!
         @brief Numerically evaluates the function for the given variable values.
 
         @details
@@ -126,21 +126,6 @@ class Function:
         return eval(self._expression, safe_globals, safe_locals)
 
     def _is_increasing(self, var: str, start: float = 0, steps: int = 10, h: float =1e-5) -> bool:
-        """
-        @brief Checks whether the function is numerically increasing in a given variable.
-
-        @details
-        The method samples `steps` points starting at `start`, computes f(x) and f(x+h),
-        and checks whether the difference is always non-negative. Only one variable changes;
-        all others are set to zero during evaluation.
-
-        @param var Name of the variable to test monotonicity in.
-        @param start Starting point for testing.
-        @param steps Number of sampling steps.
-        @param h Small increment used to approximate monotonicity.
-
-        @return True if the function is increasing across the tested interval, False otherwise.
-        """
         for i in range(steps):
             x1: float = start + i
             x2: float = x1 + h
@@ -154,19 +139,6 @@ class Function:
         return True
 
     def _is_decreasing(self, var: str, start: float = 0, steps: int = 10, h: float = 1e-5) -> bool:
-        """
-        @brief Checks whether the function is numerically decreasing in a given variable.
-
-        @details
-        Works similarly to `_is_increasing`, but checks whether f(x+h) - f(x) is always <= 0.
-
-        @param var Name of the variable to test.
-        @param start Starting point.
-        @param steps Number of evaluation points.
-        @param h Increment used for finite differences.
-
-        @return True if the function is decreasing, otherwise False.
-        """
         for i in range(steps):
             x1: float = start + i
             x2:float = x1 + h
@@ -180,7 +152,7 @@ class Function:
         return True
 
     def is_monotonic(self, var: Optional[str] = None, is_increasing: Optional[bool] = None) -> bool:
-        """
+        """!
         @brief Determines whether the function is monotonic in the given variable.
 
         @details
@@ -206,7 +178,7 @@ class Function:
             return self._is_decreasing(var)
 
     def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 10000, step: float = 100) -> Tuple[bool, Optional[float], Optional[float]]:
-        """
+        """!
         @brief Numerically checks whether the function is bounded over a given interval.
 
         @details
@@ -249,7 +221,7 @@ class Function:
                           eps: float = 1e-6,
                           step: float = 1,
                           overflow: float=1e6) -> Optional[float]:
-        """
+        """!
         Numerically approximates the limit of the function as the variable approaches a given point.
 
         @param var Name of the variable to approach. If None and the function has a single variable, it is set automatically.
@@ -317,7 +289,7 @@ class Function:
 
     # -------------------- Рівень C: символьні методи через Sage --------------------
     def sym_limit(self, var=None, point=None):
-        """
+        """!
         Computes the symbolic limit of the function as the variable approaches a given point.
 
         @param var Name of the variable to approach. If None and the function has a single variable, it is set automatically.
@@ -355,7 +327,7 @@ class Function:
         return sage.run_code(code)
 
     def derivative(self, var=None):
-        """
+        """!
         @brief Computes the symbolic derivative of a single-variable function.
 
         @details
@@ -382,7 +354,7 @@ print(diff(f, {var}))
         return sage.run_code(code)
 
     def partial_derivative(self, var):
-        """
+        """!
         @brief Computes the symbolic partial derivative with respect to a variable.
 
         @details
@@ -408,7 +380,7 @@ print(diff(f, {var}))
         return sage.run_code(code)
 
     def gradient(self):
-        """
+        """!
         @brief Computes the symbolic gradient vector of the function.
 
         @details
@@ -428,7 +400,7 @@ print(diff(f, {var}))
         return sage.run_code(code)
 
     def integral(self, var=None):
-        """
+        """!
         @brief Computes the symbolic integral of a single-variable function.
 
         @details
@@ -455,7 +427,7 @@ print(integral(f, {var}))
         return sage.run_code(code)
 
     def plot(self, var=None, start=0, stop=10, num_points=1000, title=None, xlabel=None, ylabel=None):
-        """
+        """!
         Plots the function using Matplotlib.
 
         @param var Variable to plot (if None and the function has a single variable, it is used automatically).
@@ -496,7 +468,7 @@ print(integral(f, {var}))
 
     # -------------------- Експорт --------------------
     def export_to_json(self, path: str =r'results_function.json') -> None:
-        """
+        """!
         @brief Exports various numerical and symbolic properties of the function to JSON.
 
         @details

@@ -1,4 +1,4 @@
-"""
+"""!
 @file series.py
 @brief Implements the Series class for numerical series and Taylor expansions.
 
@@ -20,7 +20,7 @@ import json
 import work_with_sage
 
 class Series:
-    """
+    """!
     @class Series
     @brief Class for numerical series: convergence checking and Taylor expansions.
 
@@ -40,28 +40,28 @@ class Series:
 
     # -------------------- Рівень A --------------------
     def get_expression(self):
-        """
+        """!
         @brief Returns the expression of the series.
         @return String representing the series expression.
         """
         return self._expression
 
     def set_expression(self, expr):
-        """
+        """!
         @brief Sets a new expression for the series.
         @param expr String expression representing the new series term.
         """
         self._expression = expr
 
     def get_variable(self):
-        """
+        """!
         @brief Returns the variable name used in the series expression.
         @return String representing the variable name.
         """
         return self._variable
 
     def set_variable(self, var):
-        """
+        """!
         @brief Sets a new variable name for the series expression.
         @param var String representing the new variable name.
         """
@@ -69,7 +69,7 @@ class Series:
 
     # -------------------- Рівень B --------------------
     def term(self, n):
-        """
+        """!
         @brief Computes the nth term of the series.
 
         @param n Index of the term to evaluate (integer, n >= 1).
@@ -85,7 +85,7 @@ class Series:
         return eval(self._expression, safe_globals, safe_locals)
 
     def is_convergent(self, eps=1e-6, max_iter=10000):
-        """
+        """!
         @brief Approximates convergence of the series using partial sums.
 
         @param eps Threshold for convergence: if the absolute value of a term falls below eps,
@@ -109,7 +109,7 @@ class Series:
 
     # -------------------- Рівень C --------------------
     def taylor_series(self, x='x', order=5):
-        """
+        """!
         @brief Computes the Taylor series expansion of a function using SageMath.
 
         @param x Symbolic variable to expand around (default: 'x').
@@ -135,7 +135,7 @@ taylor(f, {x}, 0, {order})
         return sage.run_code(code)
 
     def export_to_json(self, path=r'C:\Users\Maria\Documents\GitHub\OOP-lab1\Calculus\series_results.json', order=5):
-        """
+        """!
         @brief Exports series data to a JSON file.
 
         @param path Path to the output JSON file.
