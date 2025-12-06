@@ -184,7 +184,7 @@ class Function:
         else:
             return self._is_decreasing(var)
 
-    def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 1000, step: float = 1) -> Tuple[bool, Optional[float], Optional[float]]:
+    def is_bounded(self, var: Optional[str] = None, start: float = 0, stop: float = 10000, step: float = 100) -> Tuple[bool, Optional[float], Optional[float]]:
         """
         @brief Numerically checks whether the function is bounded over a given interval.
 
