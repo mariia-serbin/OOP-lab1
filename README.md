@@ -41,6 +41,8 @@ The system implements multiple sorting algorithms that operate on objects implem
 * Bubble Sort
 * Selection Sort
 * Merge Sort
+* Three-way Merge Sort
+* Bucket Sort
 
 ### 5. Custom List Implementations
 Users can select the underlying data structure for computations at runtime:
