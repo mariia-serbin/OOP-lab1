@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Matrices operations", "index.html", [
+  [ "Math and sorting system", "index.html", [
     [ "OOP-lab1", "md_README.html", [
       [ "Computational Math & Sorting System", "md_README.html#autotoc_md1", [
         [ "Overview", "md_README.html#autotoc_md2", null ],
